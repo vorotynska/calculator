@@ -37,20 +37,25 @@ function clear() {
 deleteBtns.addEventListener('click', (e) => del())
 
 function del() {
-    e.target.value.pop();
+    e.target.value.splice(0, -1);
 }
 
 operatorBtns.forEach((btn) => btn.addEventListener('click', e => {
     switch (e.target.value) {
+        case "invert":
+            output.value = parseFloat(output.value) * -1;
+            break;
+
         case "=":
+
+
             calc.push(output.value);
             output.value = eval(calc.join(""));
-
             calc = [];
             break;
         default:
             let last = calc[calc.length - 1];
-            if (['*', '/', '+', '-'].includes(last) && isOperator) {
+            if (['*', '/', '-', '+'].includes(last) && isOperator) {
                 calc.pop();
                 calc.push(e.target.value)
             } else {
